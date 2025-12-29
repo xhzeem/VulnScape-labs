@@ -1,0 +1,10 @@
+{
+    "instace-id": "v-1337",
+    "region": "lab-internal-1",
+    "iam": {
+        "role": "admin",
+        "access_key": "AKIAINTERNALVAL",
+        "secret_key": "SEC+INTERNAL+KEY+VAL"
+    },
+    "flag": "FLAG{SSRF_BLACKLIST_BYPASS_LOGGED}"
+}

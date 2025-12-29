@@ -16,13 +16,37 @@
             font-weight: bold;
             margin-top: 20px;
         }
+
+        nav {
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            color: #7f1d1d;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/admin">Dashboard</a>
+        <a href="/admin/config">Config</a>
+        <a href="/admin/users">Users</a>
+    </nav>
     <h1>Welcome, Administrator</h1>
     <p>This panel is only accessible from the internal network.</p>
     <div class="flag">FLAG{SSRF_BASIC_SUCCESS}</div>
+    <hr>
+    <h3>Internal Nodes:</h3>
+    <ul>
+        <li>admin-host (local)</li>
+        <li>metadata-server:80</li>
+        <li>redis-cache:6379</li>
+    </ul>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ function loadLab(type, level, title, framework, desc) {
     document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('lab-display').style.display = 'block';
     document.getElementById('lab-iframe-container').style.display = 'none';
-    
+
     document.getElementById('lab-breadcrumb').textContent = `${type.toUpperCase()} / Lab ${level}`;
     document.getElementById('lab-title').textContent = title;
     document.getElementById('lab-lang').textContent = framework;
@@ -33,20 +33,12 @@ function getDifficulty(type, level) {
 
 function openLab() {
     if (!currentLab) return;
-    
-    const port = getPort(currentLab.type, currentLab.level);
-    const url = `http://localhost:${port}`;
-    
+
+    // Use the reverse proxy path established in nginx.conf
+    const url = `/labs/${currentLab.type}/${currentLab.level}/`;
+
     document.getElementById('lab-display').style.display = 'none';
     document.getElementById('lab-iframe-container').style.display = 'block';
     document.getElementById('lab-frame').src = url;
 }
 
-function getPort(type, level) {
-    const basePorts = {
-        'ssrf': 8000,
-        'ssti': 9000,
-        'csti': 7000
-    };
-    return basePorts[type] + level;
-}
