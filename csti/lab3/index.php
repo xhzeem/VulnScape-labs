@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <div class="container" x-data="{ open: false, message: '<?php echo addslashes($_GET['payload'] ?? ''); ?>' }">
+    <div class="container" x-data="{ open: false, message: <?php echo json_encode($_GET['payload'] ?? ''); ?> }">
         <h1>Alpine.js Dashboard</h1>
         <p>This lab demonstrates Client-Side Template Injection in Alpine.js.</p>
         
