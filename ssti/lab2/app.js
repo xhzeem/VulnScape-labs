@@ -30,4 +30,4 @@ app.get('/', (req, res) => {
     }
 });
 
-app.listen(80, () => console.log('EJS Lab running on port 80'));
+app.listen(8088, () => console.log('EJS Lab running on port 8088'));

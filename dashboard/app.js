@@ -34,8 +34,17 @@ function getDifficulty(type, level) {
 function openLab() {
     if (!currentLab) return;
 
-    // Use the reverse proxy path established in nginx.conf
-    const url = `/labs/${currentLab.type}/${currentLab.level}/`;
+    let port;
+    if (currentLab.type === 'ssrf') {
+        port = 8080 + currentLab.level;
+    } else if (currentLab.type === 'ssti') {
+        port = 8086 + currentLab.level;
+    } else if (currentLab.type === 'csti') {
+        port = 8089 + currentLab.level;
+    }
+
+    const hostname = window.location.hostname;
+    const url = `http://${hostname}:${port}/`;
 
     document.getElementById('lab-display').style.display = 'none';
     document.getElementById('lab-iframe-container').style.display = 'block';

@@ -25,4 +25,4 @@ def index():
 if __name__ == '__main__':
     # Secret flag accessible via self.template_context or global scope in some scenarios
     secret_flag = "FLAG{JINJA2_SSTI_MASTERED}"
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=8087)

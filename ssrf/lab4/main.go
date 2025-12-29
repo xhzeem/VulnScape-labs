@@ -22,6 +22,16 @@ func isInternal(host string) bool {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/admin" {
+		remoteIp, _, _ := net.SplitHostPort(r.RemoteAddr)
+		if remoteIp == "127.0.0.1" || remoteIp == "::1" || remoteIp == "localhost" {
+			fmt.Fprint(w, "u accessed the admin page")
+		} else {
+			http.Error(w, "Access Denied: Localhost only.", http.StatusForbidden)
+		}
+		return
+	}
+
 	urlStr := r.URL.Query().Get("url")
 	if urlStr == "" {
 		fmt.Fprint(w, `
@@ -34,6 +44,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 							<input type="text" name="url" placeholder="http://your-webhook.com" style="width: 100%; padding: 10px;">
 							<button type="submit" style="margin-top: 10px; padding: 10px; background: #6366f1; color: white; border: none; cursor: pointer;">Verify</button>
 						</form>
+						<div style="margin-top: 30px; padding: 15px; background: #ecfdf5; border: 1px solid #10b981; border-radius: 5px;">
+							<h3 style="margin-top: 0; color: #065f46;">Internal Targets (Hints)</h3>
+							<ul>
+								<li>Admin Interface: <code style="background: #fee2e2; padding: 2px 4px;">http://127.0.0.1:8084/admin</code></li>
+								<li>Secret Service: <code style="background: #fee2e2; padding: 2px 4px;">http://127.0.0.1:8080</code></li>
+								<li>Cloud Metadata: <code style="background: #fee2e2; padding: 2px 4px;">http://169.254.169.254/metadata.json</code></li>
+							</ul>
+						</div>
+						<button style="margin-top: 20px; padding: 12px 24px; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;" onclick="window.open(window.location.href, '_blank')">🔗 Open in New Tab</button>
 					</div>
 				</body>
 			</html>
@@ -61,5 +80,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handler)
 	fmt.Println("Server starting on port 80...")
-	http.ListenAndServe(":80", nil)
+	http.ListenAndServe(":8084", nil)
 }

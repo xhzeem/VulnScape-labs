@@ -16,36 +16,48 @@ services:
   # SSRF Labs
   ssrf-lab1:
     build: ./ssrf/lab1
+    ports:
+      - "8081:8081"
     networks:
       - lab_net
       - public_net
 
   ssrf-lab2:
     build: ./ssrf/lab2
+    ports:
+      - "8082:8082"
     networks:
       - lab_net
       - public_net
 
   ssrf-lab3:
     build: ./ssrf/lab3
+    ports:
+      - "8083:8083"
     networks:
       - lab_net
       - public_net
 
   ssrf-lab4:
     build: ./ssrf/lab4
+    ports:
+      - "8084:8084"
     networks:
       - lab_net
       - public_net
 
   ssrf-lab5:
     build: ./ssrf/lab5
+    ports:
+      - "8085:8085"
     networks:
       - lab_net
       - public_net
 
   ssrf-lab6:
     build: ./ssrf/lab6
+    ports:
+      - "8086:8086"
     networks:
       - lab_net
       - public_net
@@ -53,32 +65,44 @@ services:
   # SSTI Labs
   ssti-lab1:
     build: ./ssti/lab1
+    ports:
+      - "8087:8087"
     networks:
       - public_net
 
   ssti-lab2:
     build: ./ssti/lab2
+    ports:
+      - "8088:8088"
     networks:
       - public_net
 
   ssti-lab3:
     build: ./ssti/lab3
+    ports:
+      - "8089:8089"
     networks:
       - public_net
 
   # CSTI Labs
   csti-lab1:
     build: ./csti/lab1
+    ports:
+      - "8090:8090"
     networks:
       - public_net
 
   csti-lab2:
     build: ./csti/lab2
+    ports:
+      - "8091:8091"
     networks:
       - public_net
 
   csti-lab3:
     build: ./csti/lab3
+    ports:
+      - "8092:8092"
     networks:
       - public_net
 
@@ -91,7 +115,8 @@ services:
   internal-metadata:
     build: ./internal-services/metadata
     networks:
-      - lab_net
+      lab_net:
+        ipv4_address: 169.254.169.254
 
   redis:
     image: redis:alpine
@@ -102,3 +127,6 @@ networks:
   public_net:
   lab_net:
     internal: true
+    ipam:
+      config:
+        - subnet: 169.254.0.0/16
