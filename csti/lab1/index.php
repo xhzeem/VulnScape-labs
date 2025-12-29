@@ -14,15 +14,17 @@
     <div class="container">
         <h1>Angular Search</h1>
         <p>This lab demonstrates Client-Side Template Injection in AngularJS 1.5.0.</p>
-        <form>
-            <input type="text" name="q" placeholder="Search query..." value="{{ q }}">
+        <form method="GET" action="">
+            <input type="text" name="q" ng-model="searchQuery" placeholder="Search query..." value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>">
             <button type="submit">Search</button>
         </form>
         
+        <?php if(isset($_GET['q'])): ?>
         <div class="result">
             Searching for: <?php echo $_GET['q']; ?>
             <!-- Vulnerable: PHP echoes input directly into an Angular app context -->
         </div>
+        <?php endif; ?>
     </div>
 </body>
 </html>
