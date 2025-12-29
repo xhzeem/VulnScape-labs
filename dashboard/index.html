@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulnScape - Cyber Labs</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-v">V</span>ulnScape
+            </div>
+            <nav class="nav-groups">
+                <div class="nav-group">
+                    <h3>SSRF</h3>
+                    <ul>
+                        <li onclick="loadLab('ssrf', 1, 'Basic SSRF', 'PHP', 'Understand how simple SSRF works by making internal requests to sensitive local files.')">Easy - Lab 1</li>
+                        <li onclick="loadLab('ssrf', 2, 'Blacklist Bypass', 'Flask', 'Bypass common localhost and 127.0.0.1 filters using different IP formats.')">Medium - Lab 2</li>
+                        <li onclick="loadLab('ssrf', 3, 'Whitelist Bypass', 'Express', 'Craft URLs that bypass domain whitelists using @ or other techniques.')">Medium - Lab 3</li>
+                        <li onclick="loadLab('ssrf', 4, 'DNS Rebinding', 'Go', 'Exploit a Time-of-Check Time-of-Use (TOCTOU) vulnerability using DNS Rebinding.')">Hard - Lab 4</li>
+                        <li onclick="loadLab('ssrf', 5, 'Blind SSRF', 'Flask', 'Solve an SSRF where the output is not returned to you. Use out-of-band techniques.')">Hard - Lab 5</li>
+                        <li onclick="loadLab('ssrf', 6, 'Gopher/Redis', 'PHP', 'Advanced blind SSRF targeting internal Redis using the gopher protocol.')">Expert - Lab 6</li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <h3>SSTI</h3>
+                    <ul>
+                        <li onclick="loadLab('ssti', 1, 'Jinja2', 'Flask', 'Exploit Server-Side Template Injection in Python Flask\'s Jinja2 engine.')">Easy - Lab 1</li>
+                        <li onclick="loadLab('ssti', 2, 'EJS', 'Express', 'Discover and exploit template injection in Node.js Express EJS.')">Medium - Lab 2</li>
+                        <li onclick="loadLab('ssti', 3, 'Twig', 'PHP', 'Vulnerability in PHP Twig template engine leading to Remote Code Execution.')">Hard - Lab 3</li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <h3>CSTI</h3>
+                    <ul>
+                        <li onclick="loadLab('csti', 1, 'Angular', 'JS', 'Client-Side Template Injection in Angular. Discover how to execute JS in a sandboxed environment.')">Medium - Lab 1</li>
+                        <li onclick="loadLab('csti', 2, 'Vue.js', 'JS', 'Exploit CSTI in Vue.js applications to perform Cross-Site Scripting (XSS).')">Medium - Lab 2</li>
+                        <li onclick="loadLab('csti', 3, 'Alpine.js', 'JS', 'Vulnerability in the lightweight Alpine.js framework.')">Hard - Lab 3</li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="content">
+            <header>
+                <div id="lab-breadcrumb">Select a Lab</div>
+                <div class="system-status">
+                    <span class="status-dot"></span> System Online
+                </div>
+            </header>
+            <div id="welcome-screen" class="lab-card">
+                <h2>Welcome to VulnScape</h2>
+                <p>Select a lab from the sidebar to begin your journey. Each lab is isolated and focuses on a specific vulnerability type and exploitation technique.</p>
+                <div class="stats">
+                    <div class="stat-item"><span>12</span> Labs</div>
+                    <div class="stat-item"><span>3</span> Categories</div>
+                    <div class="stat-item"><span>4</span> Difficulties</div>
+                </div>
+            </div>
+            <div id="lab-display" class="lab-card" style="display: none;">
+                <h2 id="lab-title">Lab Title</h2>
+                <div class="lab-meta">
+                    <span id="lab-lang" class="badge">Framework</span>
+                    <span id="lab-difficulty" class="badge">Difficulty</span>
+                </div>
+                <p id="lab-desc">Description of the lab.</p>
+                <div class="view-lab-container">
+                    <button class="btn btn-primary" onclick="openLab()">Start Lab</button>
+                    <p class="hint">Wait for the lab environment to initialize (10-20s after docker-compose up).</p>
+                </div>
+            </div>
+            <div id="lab-iframe-container" style="display: none;">
+                <iframe id="lab-frame" src=""></iframe>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
