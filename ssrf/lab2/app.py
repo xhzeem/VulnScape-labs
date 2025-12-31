@@ -47,7 +47,20 @@ def index():
 @app.route('/admin')
 def admin():
     if request.remote_addr in ["127.0.0.1", "::1"]:
-        return "u accessed the admin page"
+        return '''
+        <div style="font-family: sans-serif; padding: 30px; background: #fff5f5; border: 2px solid #feb2b2; border-radius: 10px;">
+            <h1 style="color: #c53030;">Critical System Administration</h1>
+            <p><strong>Status:</strong> <span style="color: #38a169;">Maintenance Required</span></p>
+            <h3>Sensitive System Configs:</h3>
+            <ul>
+                <li><strong>Log Rotation:</strong> Enabled (Daily)</li>
+                <li><strong>SSH Keys:</strong> Generated 2023-12-01</li>
+                <li><strong>VPN Gateway:</strong> <code>10.50.100.1</code></li>
+                <li><strong>Admin Token:</strong> <code>adm_live_5522_xyz_998</code></li>
+            </ul>
+            <p style="font-size: 0.8em; color: #718096;">IP Log: 127.0.0.1 accessed at 2025-12-31</p>
+        </div>
+        '''
     return "Access Denied: Localhost only.", 403
 
 if __name__ == '__main__':

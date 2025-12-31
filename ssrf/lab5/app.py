@@ -41,7 +41,19 @@ def index():
 @app.route('/admin')
 def admin():
     if request.remote_addr in ["127.0.0.1", "::1"]:
-        return "u accessed the admin page"
+        return '''
+        <div style="font-family: 'Segoe UI', sans-serif; padding: 30px; background: #fff5f5; border: 2px solid #feb2b2; border-radius: 10px;">
+            <h1 style="color: #9b2c2c;">Sensitive Admin Dashboard</h1>
+            <p>Authorized access only from 127.0.0.1.</p>
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <h4>Environment Variables:</h4>
+                <p><b>AWS_ACCESS_KEY:</b> <code>AKIA2J...SECRET_KEY</code></p>
+                <p><b>DB_PASSWORD:</b> <code>sup3r_s3cr3t_p@ss</code></p>
+                <p><b>K8S_NAMESPACE:</b> <code>prod-vulnscape</code></p>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.8em; color: #a0aec0;">Last Sync: 2 minutes ago</p>
+        </div>
+        '''
     return "Access Denied: Localhost only.", 403
 
 if __name__ == '__main__':

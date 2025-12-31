@@ -1,8 +1,39 @@
 <?php
 if ($_SERVER['REQUEST_URI'] == '/admin') {
     if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1') {
-        echo "u accessed the admin page";
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Internal Management Console</title>
+            <style>
+                body { font-family: 'Inter', sans-serif; background: #0f172a; color: #f1f5f9; padding: 40px; }
+                .dashboard { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 30px; max-width: 800px; margin: auto; }
+                h1 { color: #38bdf8; margin-top: 0; }
+                .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+                .stat-box { background: #0f172a; padding: 15px; border-radius: 8px; border-left: 4px solid #38bdf8; }
+                .stat-box h4 { margin: 0; color: #94a3b8; font-size: 0.9em; }
+                .stat-box p { margin: 5px 0 0 0; font-weight: bold; font-family: monospace; }
+                .secret-key { color: #f43f5e; background: #451a03; padding: 2px 4px; border-radius: 4px; }
+            </style>
+        </head>
+        <body>
+            <div class="dashboard">
+                <h1>Service Management Panel</h1>
+                <p>Welcome, root. All systems nominal.</p>
+                <div class="grid">
+                    <div class="stat-box"><h4>Local Cache Size</h4><p>256 MB</p></div>
+                    <div class="stat-box"><h4>Master API Token</h4><p class="secret-key">sk_live_9912_adm_88</p></div>
+                    <div class="stat-box"><h4>Internal Proxy</h4><p>enabled</p></div>
+                    <div class="stat-box"><h4>Last Scan</h4><p>12:44:01 UTC</p></div>
+                </div>
+                <p style="margin-top: 25px; color: #64748b; font-size: 0.85em;">Connected via session: 127.0.0.1 (Internal Loopback)</p>
+            </div>
+        </body>
+        </html>
+        <?php
     } else {
+        header('HTTP/1.1 403 Forbidden');
         echo "Access Denied: Localhost only.";
     }
     exit;
@@ -17,6 +48,8 @@ if (isset($_GET['url'])) {
          $ch = curl_init();
          curl_setopt($ch, CURLOPT_URL, $url);
          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
          $res = curl_exec($ch);
          curl_close($ch);
          echo "Request processed.";
@@ -24,6 +57,8 @@ if (isset($_GET['url'])) {
          $ch = curl_init();
          curl_setopt($ch, CURLOPT_URL, $url);
          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
          curl_exec($ch);
          curl_close($ch);
          echo "Request processed (Gopher).";

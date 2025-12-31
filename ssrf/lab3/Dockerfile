@@ -1,6 +1,14 @@
-FROM node:20-slim
+FROM node:20-alpine
+
+COPY . /app
 WORKDIR /app
-RUN apt-get update && apt-get install -y python3 && npm install express axios
-COPY app.js /app/app.js
+RUN npm install
+
+# Create a simple static service for 8080
+RUN mkdir /internal && echo "<h1>NODE INTERNAL SERVICE</h1><p>Internal Flag: FLAG{SSRF_NODE_EXPRESS_WHITELIST_BYPASS}</p>" > /internal/index.html
+RUN npm install -g http-server
+
 EXPOSE 8083 8080
-CMD python3 -m http.server 8080 --directory /tmp & node app.js
+
+# Start Express app and http-server on 8080
+CMD node app.js & http-server /internal -p 8080 -a 127.0.0.1

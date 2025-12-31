@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   # Dashboard
   dashboard:
     image: nginx:alpine
     ports:
-      - "80:80"
+      - "8899:80"
     volumes:
       - ./dashboard:/usr/share/nginx/html
       - ./dashboard/nginx.conf:/etc/nginx/conf.d/default.conf:ro
@@ -106,6 +104,72 @@ services:
     networks:
       - public_net
 
+  # SQLi Labs
+  sqli-lab1:
+    build: ./sqli/lab1
+    ports:
+      - "9001:9001"
+    networks:
+      - public_net
+
+  sqli-lab2:
+    build: ./sqli/lab2
+    ports:
+      - "9002:9002"
+    networks:
+      - public_net
+
+  sqli-lab3:
+    build: ./sqli/lab3
+    ports:
+      - "9003:9003"
+    networks:
+      - public_net
+
+  # XSS Labs
+  xss-lab1:
+    build: ./xss/lab1
+    ports:
+      - "9101:9101"
+    networks:
+      - public_net
+
+  xss-lab2:
+    build: ./xss/lab2
+    ports:
+      - "9102:9102"
+    networks:
+      - public_net
+
+  xss-lab3:
+    build: ./xss/lab3
+    ports:
+      - "9103:9103"
+    networks:
+      - public_net
+
+  # Command Injection Labs
+  cmd-lab1:
+    build: ./cmd-injection/lab1
+    ports:
+      - "9201:9201"
+    networks:
+      - public_net
+
+  cmd-lab2:
+    build: ./cmd-injection/lab2
+    ports:
+      - "9202:9202"
+    networks:
+      - public_net
+
+  cmd-lab3:
+    build: ./cmd-injection/lab3
+    ports:
+      - "9203:9203"
+    networks:
+      - public_net
+
   # Internal Services (Targets for SSRF)
   internal-admin:
     build: ./internal-services/admin
@@ -122,6 +186,13 @@ services:
     image: redis:alpine
     networks:
       - lab_net
+
+  mysql-db:
+    image: mariadb:10.11
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
+    networks:
+      - public_net
 
 networks:
   public_net:

@@ -25,7 +25,20 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/admin" {
 		remoteIp, _, _ := net.SplitHostPort(r.RemoteAddr)
 		if remoteIp == "127.0.0.1" || remoteIp == "::1" || remoteIp == "localhost" {
-			fmt.Fprint(w, "u accessed the admin page")
+			w.Header().Set("Content-Type", "text/html")
+			fmt.Fprint(w, `
+				<div style="font-family: 'Segoe UI', sans-serif; padding: 40px; background: #f0fdf4; border: 3px dashed #10b981; border-radius: 15px;">
+					<h1 style="color: #047857;">Go Internal Admin Console</h1>
+					<p>Successfully authenticated from localhost.</p>
+					<div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+						<h3>System Secrets:</h3>
+						<p><b>MASTER_KEY:</b> <code>go_vuln_key_2025_safe</code></p>
+						<p><b>INTERNAL_DNS:</b> <code>consul.internal.svc</code></p>
+						<p><b>PROMETHEUS_ENDPOINT:</b> <code>http://10.0.0.5:9090</code></p>
+					</div>
+					<p style="margin-top: 20px; color: #6b7280;">Node ID: node-gh-8821 | Region: us-east-1</p>
+				</div>
+			`)
 		} else {
 			http.Error(w, "Access Denied: Localhost only.", http.StatusForbidden)
 		}
@@ -78,7 +91,28 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", handler)
-	fmt.Println("Server starting on port 80...")
-	http.ListenAndServe(":8084", nil)
+	// Main lab handler on port 8084
+	mainMux := http.NewServeMux()
+	mainMux.HandleFunc("/", handler)
+
+	// Internal service handler on port 8080
+	// This replaces the need for an external httpd
+	internalMux := http.NewServeMux()
+	internalMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/internal/index.html")
+	})
+
+	// Start internal service in a goroutine
+	go func() {
+		fmt.Println("Internal service starting on port 8080...")
+		if err := http.ListenAndServe(":8080", internalMux); err != nil {
+			fmt.Printf("Internal service error: %v\n", err)
+		}
+	}()
+
+	// Start main lab
+	fmt.Println("Server starting on port 8084...")
+	if err := http.ListenAndServe(":8084", mainMux); err != nil {
+		fmt.Printf("Main server error: %v\n", err)
+	}
 }

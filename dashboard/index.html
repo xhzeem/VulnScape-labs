@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="app-container">
         <aside class="sidebar">
@@ -17,28 +19,94 @@
                 <div class="nav-group">
                     <h3>SSRF</h3>
                     <ul>
-                        <li onclick="loadLab('ssrf', 1, 'Basic SSRF', 'PHP', 'Understand how simple SSRF works by making internal requests to sensitive local files.')">Easy - Lab 1</li>
-                        <li onclick="loadLab('ssrf', 2, 'Blacklist Bypass', 'Flask', 'Bypass common localhost and 127.0.0.1 filters using different IP formats.')">Medium - Lab 2</li>
-                        <li onclick="loadLab('ssrf', 3, 'Whitelist Bypass', 'Express', 'Craft URLs that bypass domain whitelists using @ or other techniques.')">Medium - Lab 3</li>
-                        <li onclick="loadLab('ssrf', 4, 'DNS Rebinding', 'Go', 'Exploit a Time-of-Check Time-of-Use (TOCTOU) vulnerability using DNS Rebinding.')">Hard - Lab 4</li>
-                        <li onclick="loadLab('ssrf', 5, 'Blind SSRF', 'Flask', 'Solve an SSRF where the output is not returned to you. Use out-of-band techniques.')">Hard - Lab 5</li>
-                        <li onclick="loadLab('ssrf', 6, 'Gopher/Redis', 'PHP', 'Advanced blind SSRF targeting internal Redis using the gopher protocol.')">Expert - Lab 6</li>
+                        <li
+                            onclick="loadLab('ssrf', 1, 'Basic SSRF', 'PHP', 'Understand how simple SSRF works by making internal requests to sensitive local files.')">
+                            Easy - Lab 1</li>
+                        <li
+                            onclick="loadLab('ssrf', 2, 'Blacklist Bypass', 'Flask', 'Bypass common localhost and 127.0.0.1 filters using different IP formats.')">
+                            Medium - Lab 2</li>
+                        <li
+                            onclick="loadLab('ssrf', 3, 'Whitelist Bypass', 'Express', 'Craft URLs that bypass domain whitelists using @ or other techniques.')">
+                            Medium - Lab 3</li>
+                        <li
+                            onclick="loadLab('ssrf', 4, 'DNS Rebinding', 'Go', 'Exploit a Time-of-Check Time-of-Use (TOCTOU) vulnerability using DNS Rebinding.')">
+                            Hard - Lab 4</li>
+                        <li
+                            onclick="loadLab('ssrf', 5, 'Blind SSRF', 'Flask', 'Solve an SSRF where the output is not returned to you. Use out-of-band techniques.')">
+                            Hard - Lab 5</li>
+                        <li
+                            onclick="loadLab('ssrf', 6, 'Gopher/Redis', 'PHP', 'Advanced blind SSRF targeting internal Redis using the gopher protocol.')">
+                            Expert - Lab 6</li>
                     </ul>
                 </div>
                 <div class="nav-group">
                     <h3>SSTI</h3>
                     <ul>
-                        <li onclick="loadLab('ssti', 1, 'Jinja2', 'Flask', 'Exploit Server-Side Template Injection in Python Flask\'s Jinja2 engine.')">Easy - Lab 1</li>
-                        <li onclick="loadLab('ssti', 2, 'EJS', 'Express', 'Discover and exploit template injection in Node.js Express EJS.')">Medium - Lab 2</li>
-                        <li onclick="loadLab('ssti', 3, 'Twig', 'PHP', 'Vulnerability in PHP Twig template engine leading to Remote Code Execution.')">Hard - Lab 3</li>
+                        <li
+                            onclick="loadLab('ssti', 1, 'Jinja2', 'Flask', 'Exploit Server-Side Template Injection in Python Flask\'s Jinja2 engine.')">
+                            Easy - Lab 1</li>
+                        <li
+                            onclick="loadLab('ssti', 2, 'EJS', 'Express', 'Discover and exploit template injection in Node.js Express EJS.')">
+                            Medium - Lab 2</li>
+                        <li
+                            onclick="loadLab('ssti', 3, 'Twig', 'PHP', 'Vulnerability in PHP Twig template engine leading to Remote Code Execution.')">
+                            Hard - Lab 3</li>
                     </ul>
                 </div>
                 <div class="nav-group">
                     <h3>CSTI</h3>
                     <ul>
-                        <li onclick="loadLab('csti', 1, 'Angular', 'JS', 'Client-Side Template Injection in Angular. Discover how to execute JS in a sandboxed environment.')">Medium - Lab 1</li>
-                        <li onclick="loadLab('csti', 2, 'Vue.js', 'JS', 'Exploit CSTI in Vue.js applications to perform Cross-Site Scripting (XSS).')">Medium - Lab 2</li>
-                        <li onclick="loadLab('csti', 3, 'Alpine.js', 'JS', 'Vulnerability in the lightweight Alpine.js framework.')">Hard - Lab 3</li>
+                        <li
+                            onclick="loadLab('csti', 1, 'Angular', 'JS', 'Client-Side Template Injection in Angular. Discover how to execute JS in a sandboxed environment.')">
+                            Medium - Lab 1</li>
+                        <li
+                            onclick="loadLab('csti', 2, 'Vue.js', 'JS', 'Exploit CSTI in Vue.js applications to perform Cross-Site Scripting (XSS).')">
+                            Medium - Lab 2</li>
+                        <li
+                            onclick="loadLab('csti', 3, 'Alpine.js', 'JS', 'Vulnerability in the lightweight Alpine.js framework.')">
+                            Hard - Lab 3</li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <h3>SQLi</h3>
+                    <ul>
+                        <li
+                            onclick="loadLab('sqli', 1, 'UNION Based', 'PHP/MySQL', 'Exploit a classic UNION-based SQL injection to leak sensitive database information.')">
+                            Easy - Lab 1</li>
+                        <li
+                            onclick="loadLab('sqli', 2, 'Error Based', 'PHP/MySQL', 'Leverage database error messages to extract data from the system.')">
+                            Medium - Lab 2</li>
+                        <li
+                            onclick="loadLab('sqli', 3, 'Blind Based', 'PHP/MySQL', 'Infer data byte by byte without receiving direct output from the query.')">
+                            Hard - Lab 3</li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <h3>XSS</h3>
+                    <ul>
+                        <li
+                            onclick="loadLab('xss', 1, 'Reflected', 'PHP', 'Classic Reflected XSS where user input is echoed back to the page.')">
+                            Easy - Lab 1</li>
+                        <li
+                            onclick="loadLab('xss', 2, 'Stored', 'PHP/SQLite', 'Persistent XSS where the payload is saved in the database and served to others.')">
+                            Medium - Lab 2</li>
+                        <li
+                            onclick="loadLab('xss', 3, 'DOM Based', 'JS', 'Exploit vulnerabilities in the client-side JavaScript processing of URL fragments.')">
+                            Medium - Lab 3</li>
+                    </ul>
+                </div>
+                <div class="nav-group">
+                    <h3>Cmd Inj</h3>
+                    <ul>
+                        <li
+                            onclick="loadLab('cmd-injection', 1, 'Simple Ping', 'PHP', 'Basic OS Command Injection via a network utility tool.')">
+                            Easy - Lab 1</li>
+                        <li
+                            onclick="loadLab('cmd-injection', 2, 'Filtered', 'PHP', 'Bypass simple blacklist filters to achieve command execution.')">
+                            Medium - Lab 2</li>
+                        <li
+                            onclick="loadLab('cmd-injection', 3, 'Blind', 'PHP', 'Solve a command injection vulnerability where no output is returned.')">
+                            Hard - Lab 3</li>
                     </ul>
                 </div>
             </nav>
@@ -52,10 +120,11 @@
             </header>
             <div id="welcome-screen" class="lab-card">
                 <h2>Welcome to VulnScape</h2>
-                <p>Select a lab from the sidebar to begin your journey. Each lab is isolated and focuses on a specific vulnerability type and exploitation technique.</p>
+                <p>Select a lab from the sidebar to begin your journey. Each lab is isolated and focuses on a specific
+                    vulnerability type and exploitation technique.</p>
                 <div class="stats">
-                    <div class="stat-item"><span>12</span> Labs</div>
-                    <div class="stat-item"><span>3</span> Categories</div>
+                    <div class="stat-item"><span>21</span> Labs</div>
+                    <div class="stat-item"><span>6</span> Categories</div>
                     <div class="stat-item"><span>4</span> Difficulties</div>
                 </div>
             </div>
@@ -78,4 +147,5 @@
     </div>
     <script src="app.js"></script>
 </body>
+
 </html>

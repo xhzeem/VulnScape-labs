@@ -1,8 +1,40 @@
 <?php
 if ($_SERVER['REQUEST_URI'] == '/admin') {
     if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1') {
-        echo "u accessed the admin page";
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Admin Dashboard</title>
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a202c; color: #e2e8f0; padding: 20px; }
+                .card { background: #2d3748; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                h1 { color: #63b3ed; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th, td { text-align: left; padding: 12px; border-bottom: 1px solid #4a5568; }
+                th { color: #a0aec0; }
+                .secret { filter: blur(4px); transition: filter 0.3s; }
+                .secret:hover { filter: blur(0); }
+            </style>
+        </head>
+        <body>
+            <div class="card">
+                <h1>Admin Control Panel</h1>
+                <p>Welcome, Authorized Administrator.</p>
+                <table>
+                    <tr><th>System Variable</th><th>Value</th></tr>
+                    <tr><td>Internal DB Host</td><td><code>db-internal.local</code></td></tr>
+                    <tr><td>API Secret Key</td><td><span class="secret">VULNSCAPE_SEC_9921_ABC</span></td></tr>
+                    <tr><td>Backup Server</td><td><code>10.0.0.15:22</code></td></tr>
+                    <tr><td>Environment</td><td>Production</td></tr>
+                </table>
+                <p style="margin-top: 20px; font-size: 0.8em; color: #718096;">Server Uptime: 154 days, 4 hours, 12 minutes</p>
+            </div>
+        </body>
+        </html>
+        <?php
     } else {
+        header('HTTP/1.1 403 Forbidden');
         echo "Access Denied: Localhost only.";
     }
     exit;
@@ -14,6 +46,8 @@ if (isset($_GET['url'])) {
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
     $response = curl_exec($ch);
     curl_close($ch);
     echo $response;

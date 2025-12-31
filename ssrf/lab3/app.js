@@ -45,7 +45,22 @@ app.get('/', async (req, res) => {
 app.get('/admin', (req, res) => {
     const remoteIp = req.socket.remoteAddress;
     if (remoteIp === '::ffff:127.0.0.1' || remoteIp === '127.0.0.1' || remoteIp === '::1') {
-        res.send('u accessed the admin page');
+        res.send(`
+            <div style="font-family: 'Courier New', Courier, monospace; background: #1a202c; color: #48bb78; padding: 25px; border-radius: 5px; border: 1px solid #2d3748;">
+                <h2 style="color: #cbd5e0; border-bottom: 1px solid #2d3748; padding-bottom: 10px;">SYSTEM STATUS: SECURE</h2>
+                <div style="margin-top: 15px;">
+                    <p>> uptime: 243d 12h 4m</p>
+                    <p>> internal_ip: 172.18.0.5</p>
+                    <p>> node_version: v20.5.0</p>
+                    <p>> db_status: CONNECTED</p>
+                    <p>> backup_path: /mnt/backups/internal_db_sql</p>
+                    <p>> debug_mode: OFF</p>
+                </div>
+                <div style="margin-top: 20px; color: #a0aec0; font-size: 0.9em;">
+                    Last Login: 127.0.0.1 on Dec 31, 2025
+                </div>
+            </div>
+        `);
     } else {
         res.status(403).send('Access Denied: Localhost only.');
     }

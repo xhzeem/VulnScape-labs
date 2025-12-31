@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>XSS Lab 3 - DOM Based</title>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            padding: 50px;
+            background: #0f172a;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        #welcome-message {
+            background: #1e3a8a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            border-left: 4px solid #60a5fa;
+        }
+
+        .hint {
+            margin-top: 30px;
+            padding: 15px;
+            background: #1e1b4b;
+            border: 1px solid #3730a3;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        code {
+            color: #f472b6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome back!</h1>
+        <p>Personalizing your experience...</p>
+
+        <div id="welcome-message"></div>
+
+        <script>
+            // Vulnerable DOM-based XSS code
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+
+            if (name) {
+                document.getElementById('welcome-message').innerHTML = "Hello, " + name + "! Glad to see you again.";
+            } else {
+                document.getElementById('welcome-message').innerHTML = "Hello, Guest! Welcome to our portal.";
+            }
+        </script>
+
+        <div class="hint">
+            <strong>Hint:</strong> This lab is vulnerable to DOM-based Cross-Site Scripting (XSS). The 'name' parameter
+            from the URL is directly written to the page using <code>innerHTML</code>.
+            <br>
+            <code>?name=&lt;img src=x onerror=alert('DOM_XSS')&gt;</code>
+        </div>
+    </div>
+</body>
+
+</html>

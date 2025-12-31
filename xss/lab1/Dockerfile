@@ -3,5 +3,5 @@ FROM php:8.2-cli-alpine
 COPY index.php /app/index.php
 WORKDIR /app
 
-EXPOSE 8090
-CMD ["php", "-S", "0.0.0.0:8090"]
+EXPOSE 9101
+CMD ["php", "-S", "0.0.0.0:9101"]

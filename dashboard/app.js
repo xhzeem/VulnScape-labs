@@ -41,6 +41,12 @@ function openLab() {
         port = 8086 + currentLab.level;
     } else if (currentLab.type === 'csti') {
         port = 8089 + currentLab.level;
+    } else if (currentLab.type === 'sqli') {
+        port = 9000 + currentLab.level;
+    } else if (currentLab.type === 'xss') {
+        port = 9100 + currentLab.level;
+    } else if (currentLab.type === 'cmd-injection') {
+        port = 9200 + currentLab.level;
     }
 
     const hostname = window.location.hostname;
