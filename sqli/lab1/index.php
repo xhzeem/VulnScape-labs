@@ -1,15 +1,10 @@
 <?php
-// Connect to shared MariaDB
-$conn = new mysqli("mysql-db", "root", "", "lab_sqli_1");
+// Connect to MariaDB
+$conn = new mysqli("mysql-db", "root", "");
 
-// If database doesn't exist, create it and initialize
-if ($conn->connect_error) {
-    // Initial connection to create DB
-    $tmp_conn = new mysqli("mysql-db", "root", "");
-    $tmp_conn->query("CREATE DATABASE IF NOT EXISTS lab_sqli_1");
-    $tmp_conn->close();
-    $conn = new mysqli("mysql-db", "root", "", "lab_sqli_1");
-}
+// Ensure database exists
+$conn->query("CREATE DATABASE IF NOT EXISTS lab_sqli_1");
+$conn->select_db("lab_sqli_1");
 
 // Setup tables
 $conn->query("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(50), password VARCHAR(50), role VARCHAR(50))");

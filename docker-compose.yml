@@ -111,6 +111,7 @@ services:
       - "9001:9001"
     networks:
       - public_net
+      - lab_net
 
   sqli-lab2:
     build: ./sqli/lab2
@@ -118,6 +119,7 @@ services:
       - "9002:9002"
     networks:
       - public_net
+      - lab_net
 
   sqli-lab3:
     build: ./sqli/lab3
@@ -125,6 +127,7 @@ services:
       - "9003:9003"
     networks:
       - public_net
+      - lab_net
 
   # XSS Labs
   xss-lab1:
@@ -192,7 +195,7 @@ services:
     environment:
       - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
     networks:
-      - public_net
+      - lab_net
 
 networks:
   public_net:
